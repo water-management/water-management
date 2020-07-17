@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_17_100538) do
+ActiveRecord::Schema.define(version: 2020_07_17_102428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,4 +38,14 @@ ActiveRecord::Schema.define(version: 2020_07_17_100538) do
     t.index ["reset_password_token"], name: "index_meter_readers_on_reset_password_token", unique: true
   end
 
+  create_table "meter_units", force: :cascade do |t|
+    t.integer "unit"
+    t.bigint "customer_id", null: false
+    t.boolean "verified", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_meter_units_on_customer_id"
+  end
+
+  add_foreign_key "meter_units", "customers"
 end
