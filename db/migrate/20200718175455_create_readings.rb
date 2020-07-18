@@ -1,7 +1,7 @@
-class CreateMeterUnits < ActiveRecord::Migration[6.0]
+class CreateReadings < ActiveRecord::Migration[6.0]
   def change
-    create_table :meter_units do |t|
-      t.integer :unit
+    create_table :readings do |t|
+      t.integer :meter_unit
       t.references :customer, null: false, foreign_key: true
       t.boolean :verified, default: false
 

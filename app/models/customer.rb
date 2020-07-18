@@ -1,3 +1,3 @@
 class Customer < ApplicationRecord
-  has_many :meter_units
+  has_many :readings
 end
