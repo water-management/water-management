@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_18_183128) do
+ActiveRecord::Schema.define(version: 2020_07_18_185133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 2020_07_18_183128) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["meter_number"], name: "index_customers_on_meter_number", unique: true
+  end
+
+  create_table "customers_meter_readers", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "meter_reader_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_customers_meter_readers_on_customer_id"
+    t.index ["meter_reader_id"], name: "index_customers_meter_readers_on_meter_reader_id"
   end
 
   create_table "meter_readers", force: :cascade do |t|
@@ -48,5 +57,7 @@ ActiveRecord::Schema.define(version: 2020_07_18_183128) do
     t.index ["meter_unit", "customer_id"], name: "index_readings_on_meter_unit_and_customer_id", unique: true
   end
 
+  add_foreign_key "customers_meter_readers", "customers"
+  add_foreign_key "customers_meter_readers", "meter_readers"
   add_foreign_key "readings", "customers"
 end
