@@ -6,4 +6,6 @@ class MeterReader < ApplicationRecord
 
   has_many :customers_meter_readers
   has_many :customers, through: :customers_meter_readers
+
+  
 end
