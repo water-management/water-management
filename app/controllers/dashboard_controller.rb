@@ -6,7 +6,11 @@ class DashboardController < ApplicationController
   end
 
   def input
-    @customer = Customer.find(session[:customer_id])
+    if session[:customer_id].nil?
+      redirect_to root_path
+    else
+      @customer = Customer.find(session[:customer_id])
+    end    
   end
 
   def search
