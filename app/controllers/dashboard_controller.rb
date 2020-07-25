@@ -6,15 +6,16 @@ class DashboardController < ApplicationController
   end
 
   def input
+    @customer = Customer.find(session[:customer_id])
   end
 
   def search
-    @meter_number = params[:meter_number];
+    meter_number = params[:meter_number]
 
-    @customer = Customer.find_by(meter_number: @meter_number)
+    customer = Customer.find_by(meter_number: meter_number)
 
-    if @customer
-      session[:customer_id] = @customer.id
+    if customer
+      session[:customer_id] = customer.id
       redirect_to dashboard_input_path
     else      
       flash[:danger] = "Wrong input"
